@@ -15,10 +15,19 @@
 // int ticket code captures the ticket number, symbol (AUDUSD), buy or sell, the volume,price,,0 slippage,0 stoploss, 0 takeprofit
 ""comment, 0 Magic number. Below is MT4 version for order.
 
-
 bool OpenTrade(ENUM_ORDER_TYPE type, double volume) {      
 
    double price  = (type == ORDER_TYPE_BUY) ?  SymbolInfoDouble(Symbol(), SYMBOL_ASK) : SymbolInfoDouble(Symbol(), SYMBOL_BID);   
    int    ticket = OrderSend(Symbol(), type, volume, price, 0, 0, 0, "", 0);
    return (ticket > 0);
 } 
+
+// Object delete statement. 0 (currentchart) textName ( the constant buy and sell names) 
+
+void OnDeinit(const int reason) {
+
+   ObjectDelete(0, TextName);
+   ObjectDelete(0, BuyName);
+   ObjectDelete(0, SellName);
+}
+
