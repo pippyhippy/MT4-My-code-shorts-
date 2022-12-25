@@ -1,0 +1,24 @@
+//+------------------------------------------------------------------+
+//|                                           Simple trade panel.mq4 |
+//|                        Copyright 2022, Crypto Super unreal deals |
+//|                              http://crypto.superunrealdeals.com/ |
+//+------------------------------------------------------------------+
+#property copyright "Copyright 2022, Crypto Super unreal deals"
+#property link      "http://crypto.superunrealdeals.com/"
+#property version   "1.00, takeprofit
+#property strict
+
+// Method of opening trade is different between 4 and 5
+
+//bool is a function,this is called an ' argument' taking order type (buy/sell) and volume
+// double price is OPEN TRADES ON PANEL buy is the asking price and bid the selling price
+// int ticket code captures the ticket number, symbol (AUDUSD), buy or sell, the volume,price,,0 slippage,0 stoploss, 0 takeprofit
+""comment, 0 Magic number. Below is MT4 version for order.
+
+
+bool OpenTrade(ENUM_ORDER_TYPE type, double volume) {      
+
+   double price  = (type == ORDER_TYPE_BUY) ?  SymbolInfoDouble(Symbol(), SYMBOL_ASK) : SymbolInfoDouble(Symbol(), SYMBOL_BID);   
+   int    ticket = OrderSend(Symbol(), type, volume, price, 0, 0, 0, "", 0);
+   return (ticket > 0);
+} 
